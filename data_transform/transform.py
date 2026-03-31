@@ -1,83 +1,71 @@
 import pandas as pd
 
-
-# -----------------------------------------------------------
-# Student tasks (skeletons) — opiskelija toteuttaa nämä
-# -----------------------------------------------------------
-
-
 def clean_strings(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Tehtävä: Siivoa tekstisarakkeet kuten 'name' ja 'capital'.
+    TODO: Siivoa tekstisarakkeet kuten 'name' ja 'capital'.
 
     Ohjeet:
     - Käytä pandasin `.str`-metodeja
     - Poista ympäröivät välilyönnit
-    - Muuta esimerkiksi title-caseen
-    - Poista tarvittaessa numerot ja erikoismerkit
+    - Muuta title-caseen (iso alkukirjain aina)
 
     Palauta siivottu DataFrame.
     """
-    # TODO: opiskelijan toteutus
+
     return df
 
 
-def handle_missing(df: pd.DataFrame) -> pd.DataFrame:
+def handle_missing(df):
     """
-    Tehtävä: Käsittele puuttuvat arvot.
+    TODO: Käsittele puuttuvat arvot.
 
     Ohjeet:
+    - Lisää funktioon type hint, joka kertoo, että funktio ottaa syötteenä on DataFramen ja myös palautettaa DataFramen
+    - Tee df-kopio, jotta funktio ei muokkaa alkuperäistä DataFramea
     - Korvaa "N/A" ja vastaavat merkeillä `pd.NA`
     - Tulosta kuinka monta puuttuvaa arvoa sarakkeissa on
-    - Poista rivit, joilta puuttuu esim. 'capital'
 
     Palauta DataFrame, jossa puuttuvat arvot käsitelty.
     """
-    # TODO: opiskelijan toteutus
+
     return df
 
 
-def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+def remove_duplicates(df):
     """
-    Tehtävä: Poista duplikaatit.
+    # TODO: Poista duplikaatit.
 
     Ohjeet:
-    - Poista päällekkäiset rivit perustuen esim. 'name' (case-insensitive)
+    - Lisää funktioon type hint, joka kertoo, että funktio ottaa syötteenä on DataFramen ja myös palautettaa DataFramen
+    - Tee df-kopio, jotta funktio ei muokkaa alkuperäistä DataFramea
+    - Poista päällekkäiset rivit perustuen 'name'-sarakkeeseen
     - Palauta puhdistettu DataFrame
     """
-    # TODO: opiskelijan toteutus
+
     return df
 
 
-def fix_types_and_sort(df: pd.DataFrame) -> pd.DataFrame:
+def fix_types_and_sort(df):
     """
-    Tehtävä: Korjaa sarakkeiden tyypit ja järjestä.
+    TODO: Korjaa sarakkeiden tyypit ja järjestä.
 
     Ohjeet:
-    - Kokeile muuntaa numeromuotoiset sarakkeet numeerisiksi
+    - Lisää funktioon type hint, joka kertoo, että funktio ottaa syötteenä on DataFramen ja myös palautettaa DataFramen
+    - Tee df-kopio, jotta funktio ei muokkaa alkuperäistä DataFramea
+    - Muunna numeromuotoiset sarakkeet numeerisiksi
     - Järjestä DataFrame nimen mukaan
     """
-    # TODO: opiskelijan toteutus
+
     return df
 
 
-def clean_dataframe(df: pd.DataFrame, save_path: str | None = None) -> pd.DataFrame:
-    """Suorittaa kaikki siivousvaiheet peräkkäin (kutsuu yllä olevia funktioita)."""
-    df = df.copy()
-    df = clean_strings(df)
-    df = handle_missing(df)
-    df = remove_duplicates(df)
-    df = fix_types_and_sort(df)
-
-    if save_path:
-        df.to_csv(save_path, index=False)
-    return df
-
-
+"""
+Alla oleva lista määrittelee moduulin julkiset funktiot, eli mitkä funktionimet tuodaan mukaan, 
+kun käytetään from module import * -syntaksia.
+"""
 __all__ = [
     "clean_strings",
     "handle_missing",
     "remove_duplicates",
-    "fix_types_and_sort",
-    "clean_dataframe",
+    "fix_types_and_sort"
 ]

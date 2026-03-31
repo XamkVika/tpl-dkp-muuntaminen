@@ -1,24 +1,26 @@
 import pandas as pd
-from data_transform.transform import clean_dataframe
-
+# TODO: Tuo data_tansform-paketin transform-moduulin funktiot
 
 def main():
 	file_path = "data/countries_noisy.json"
+	save_path = "data/countries_cleaned.json"
 
-	# Read JSON file content to a dataframe
-	data = pd.read_json(file_path)
+	# TODO: Lue data JSON-tiedostosta DataFrameen
 
-	# Show the first 10 rows to understand the data
+	# TODO: Tulosta 10 ensimmäistä riviä datasta ja rivimäärä ennen siivousta
 	print("Original data sample:")
-	print(data.head(10))
-	print(f"\nTotal rows before cleaning: {len(data)}")
 
-	cleaned = clean_dataframe(data, save_path="data/cleaned_countries.csv")
 
-	print("\nAfter cleaning operations:")
-	print(cleaned.head(10))
-	print(f"\nTotal rows after cleaning: {len(cleaned)}")
+	# Suorittaa kaikki siivousvaiheet peräkkäin
+	data = clean_strings(data)
+	data = handle_missing(data)
+	data = remove_duplicates(data)
+	data = fix_types_and_sort(data)
 
+	# TODO: Tallenna puhdistettu data uuteen JSON-tiedostoon, käytä save_path-muuttujaa
+
+	# TODO: Tulosta 10 ensimmäistä riviä puhdistetusta datasta ja rivimäärä siivouksen jälkeen
+	print("Cleaned data sample:")
 
 if __name__ == "__main__":
 	main()

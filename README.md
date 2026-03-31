@@ -6,8 +6,12 @@ The project structure is
 ```
 /
 │── data/
-│ └── countries_noisy.csv         # dataset to be cleaned
-│── main.py                       # your code (tasks with TODOs)
+│ └── countries_noisy.json        # dataset to be cleaned
+|── data_transform/
+│ └── transform.py                # tasks with TODOs
+|── tests/
+│ └── test_transform.py           # tests
+│── main.py                       # tasks with TODOs
 │── requirements.txt              # project dependencies
 │── README.md                     # this file
 ```
@@ -27,6 +31,11 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Open main.py and follow the step-by-step instructions in the comments.
+3. Open main.py and transform.py, follow the instructions in the comments.
 
-4. Commit and push your changes to this repository.
+4. Run tests in cmd: 
+```
+pytest
+```
+
+5. Commit and push your changes to this repository.

@@ -1,12 +1,16 @@
 import pandas as pd
 import pytest
+import sys
+from pathlib import Path
 
-from data_cleaning.cleaner import (
+# Add the project root to sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from data_transform import (
     clean_strings,
     handle_missing,
     remove_duplicates,
-    fix_types_and_sort,
-    clean_dataframe,
+    fix_types_and_sort
 )
 
 
@@ -14,9 +18,9 @@ from data_cleaning.cleaner import (
 def sample_df():
     return pd.DataFrame(
         {
-            "name": [" finland ", "Finland", "france1", "Spain"],
-            "capital": ["helsinki ", "Helsinki", "Paris", "N/A"],
-            "population": ["5", "5", "67", "47"],
+            "name": [" finland ", "Finland", " france", "Spain", "Italy"],
+            "capital": ["helsinki ", "Helsinki", "Paris", "N/A", "Rome"],
+            "population": [5, "5", 67, "47", 60],
         }
     )
 
@@ -25,8 +29,8 @@ def test_clean_strings(sample_df):
     out = clean_strings(sample_df)
     assert out.loc[0, "name"] == "Finland"
     assert out.loc[0, "capital"] == "Helsinki"
-    # digits removed from france1 -> France
-    assert "1" not in out.loc[2, "name"]
+    #assert no spaces around the strings
+    assert not out["name"].str.startswith(" ").any()
 
 
 def test_handle_missing(sample_df):
@@ -46,11 +50,6 @@ def test_fix_types_and_sort(sample_df):
     out = fix_types_and_sort(sample_df)
     # population should be coerced to numeric where possible
     assert pd.api.types.is_numeric_dtype(out["population"]) or out["population"].dtype == object
+    # DataFrame should be sorted by name
+    assert out["name"].is_monotonic_increasing
 
-
-def test_clean_dataframe_end_to_end(sample_df, tmp_path):
-    out_path = tmp_path / "cleaned.csv"
-    cleaned = clean_dataframe(sample_df, save_path=str(out_path))
-    # Check that saved file exists and cleaned DataFrame returned
-    assert out_path.exists()
-    assert isinstance(cleaned, pd.DataFrame)
